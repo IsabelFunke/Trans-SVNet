@@ -52,7 +52,7 @@ def change_size(image):
 if not os.path.exists(source_path):
     raise RuntimeError("Cannot find Cholec80 videos at '{}'".format(source_path))
 if not os.path.exists(save_path):
-    os.path.makedirs(save_path)
+    os.makedirs(save_path)
 
 
 Video_num = 0

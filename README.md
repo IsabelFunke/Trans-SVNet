@@ -5,9 +5,9 @@ This is a fork of the offical code repo at https://github.com/xjgaocs/Trans-SVNe
 ## Getting started
 
 - Clone this repository recursively:
-```
-git clone --recursive https://github.com/IsabelFunke/Trans-SVNet.git
-```
+    ```
+    git clone --recursive https://github.com/IsabelFunke/Trans-SVNet.git
+    ```
 - Download the files that the authors provide in the [Google Drive](https://drive.google.com/drive/folders/1Zgrg1G8fdrOzQ5W3FREl35NmDQMDWEXp?usp=sharing). Copy the files to the following locations in the `Trans-SVNet` directory:
     ```
     <code_dir>
@@ -37,8 +37,8 @@ git clone --recursive https://github.com/IsabelFunke/Trans-SVNet.git
                 ...
             ...
     ```
-- Activate Python environment
-We provide all used Python packages in `environment.yml`. Anaconda can be used to recreate our Python environment:
+- Activate Python environment:
+    We provide all used Python packages in `environment.yml`. Anaconda can be used to recreate our Python environment:
     ```
     cd <code_dir>/Trans-SVNet
     */Trans-SVNet$ conda env create -f environment.yml
@@ -112,7 +112,7 @@ This is based on evaluation code from the TMRNet repository.
         ```
     - Convert the predictions in `Eval/Test_Trans-SVNet/all_predictions.pkl` into `video*-phase.txt` files by running:
              ```
-             (torch151) */Trans-SVNet/Eval/relaxed_metrics$ python export_phase_copy.py --name "../Test_Trans-SVNet/all_predictions.pkl"
+(torch151) */Trans-SVNet/Eval/relaxed_metrics$ python export_phase_copy.py --name "../Test_Trans-SVNet/all_predictions.pkl"
              ```
 - Run the MATLAB evaluation script. We used [GNU Octave](https://octave.org/), see [this Readme](https://gitlab.com/nct_tso_public/phasemetrics#installing-octave-and-oct2py-optional) for installation extractions (an installation of `oct2py` is not required).
     ```
@@ -127,10 +127,11 @@ This is based on evaluation code from the TMRNet repository.
 ### 3b. Compute regular evaluation metrics
 This is based on the implementation at https://gitlab.com/nct_tso_public/phasemetrics.
 - Change to subdirectory `Eval`
-- Run the evaluation script, where `<data_root>` needs to be replaced with the correct path to the Cholec80 data. The option `--datasplit` can also be `"40-40"` in order to compute the results on all 40 videos (32 test + 8 validation).
+- Run the evaluation script:
         ```
-        (torch151) */Trans-SVNet/Eval$ python -m PhaseMetrics.eval --experiment "Test_Trans-SVNet" --datasplit "40-8-32" --results_root "." --data_root "<data_root>/cholec80"
+(torch151) */Trans-SVNet/Eval$ python -m PhaseMetrics.eval --experiment "Test_Trans-SVNet" --datasplit "40-8-32" --results_root "." --data_root "<data_root>/cholec80"
         ```
+    Here, `<data_root>` needs to be replaced with the correct path to the Cholec80 data. The option `--datasplit` can also be `"40-40"` in order to compute the results on all 40 videos (32 test + 8 validation).
 - An evaluation report with the computed evaluation metrics will be created at `Eval/Test_Trans-SVNet/40-8-32\eval.yaml`. See the [PhaseMetrics repo](https://gitlab.com/nct_tso_public/phasemetrics)  for further documentation.
 
 
