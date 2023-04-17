@@ -49,6 +49,8 @@ parser.add_argument('--sgdstep', default=5, type=int, help='number of steps to a
 parser.add_argument('--sgdgamma', default=0.1, type=float, help='gamma of steps to adjust lr for sgd, default 0.1')
 parser.add_argument('--LFB_l', default=40, type=int, help='long term feature bank length')
 parser.add_argument('--load_LFB', default=False, type=bool, help='whether load exist long term feature bank')
+parser.add_argument('--skip_train', action='store_true',
+                    help='whether to skip the training subset during feature extraction')
 
 args = parser.parse_args()
 
@@ -544,19 +546,20 @@ def train_model(train_dataset, train_num_each, val_dataset, val_num_each):
 
         with torch.no_grad():
             #'''
-            for data in train_feature_loader:
-                if use_gpu:
-                    inputs, labels_phase = data[0].to(device), data[1].to(device)
-                else:
-                    inputs, labels_phase = data[0], data[1]
+            if not args.skip_train:
+                for data in train_feature_loader:
+                    if use_gpu:
+                        inputs, labels_phase = data[0].to(device), data[1].to(device)
+                    else:
+                        inputs, labels_phase = data[0], data[1]
 
-                inputs = inputs.view(-1, sequence_length, 3, 224, 224)
-                outputs_feature = model_LFB.forward(inputs).data.cpu().numpy()
+                    inputs = inputs.view(-1, sequence_length, 3, 224, 224)
+                    outputs_feature = model_LFB.forward(inputs).data.cpu().numpy()
 
-                g_LFB_train = np.concatenate((g_LFB_train, outputs_feature), axis=0)
+                    g_LFB_train = np.concatenate((g_LFB_train, outputs_feature), axis=0)
 
 
-                print("train feature length:", len(g_LFB_train))
+                    print("train feature length:", len(g_LFB_train))
 
             for data in val_feature_loader:
                 if use_gpu:

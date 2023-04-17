@@ -112,13 +112,13 @@ class Transformer(nn.Module):
         return output
 
 
-with open("./LFB/g_LFB50_train.pkl", 'rb') as f:
+with open("./LFB/g_LFB50_train0.pkl", 'rb') as f:
     g_LFB_train = pickle.load(f)
 
-with open("./LFB/g_LFB50_val.pkl", 'rb') as f:
+with open("./LFB/g_LFB50_val0.pkl", 'rb') as f:
     g_LFB_val = pickle.load(f)
 
-with open("./LFB/g_LFB50_test.pkl", 'rb') as f:
+with open("./LFB/g_LFB50_test0.pkl", 'rb') as f:
     g_LFB_test = pickle.load(f)
 
 print("load completed")
@@ -423,7 +423,7 @@ for epoch in range(max_epochs):
                 + "_epoch_" + str(best_epoch) \
                 + "_train_" + str(save_train_phase) \
                 + "_val_" + str(save_val_phase)
-    #torch.save(best_model_wts, "./best_model/TeCNO/" + base_name + ".pth")
+    torch.save(best_model_wts, "./best_model/TeCNO/" + base_name + ".pth")
     print("best_epoch", str(best_epoch))
 
 
